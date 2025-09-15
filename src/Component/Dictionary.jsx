@@ -213,7 +213,7 @@ const Dictionary = () => {
                     <li key={i}>
                       <button
                         onClick={() => handleClickWord(s.word)}
-                        className="w-full text-left px-3 py-2 rounded hover:bg-green-200"
+                        className="w-full text-left px-3 py-2 rounded hover:bg-green-100"
                       >
                         {s.word}
                       </button>
