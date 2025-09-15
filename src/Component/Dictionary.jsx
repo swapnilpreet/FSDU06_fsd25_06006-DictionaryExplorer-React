@@ -1,6 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
-
+import { MdSunny } from "react-icons/md";
+import { FaMoon } from "react-icons/fa";
 const Dictionary = () => {
   const [searchText, setSearchText] = useState("");
   const [suggestList, setSuggestList] = useState([]);
@@ -8,6 +9,8 @@ const Dictionary = () => {
   const [errMsg, setErrMsg] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [recentWords, setRecentWords] = useState([]);
+  4;
+  const [toggle, settoggle] = useState(false);
   const timerRef = useRef(null);
   useEffect(() => {
     if (timerRef.current) clearTimeout(timerRef.current);
@@ -52,7 +55,7 @@ const Dictionary = () => {
         [txt, ...old.filter((w) => w !== txt)].slice(0, 8)
       );
     } catch (e) {
-        console.log(e)
+      console.log(e);
       setErrMsg("Word not found");
     } finally {
       setIsLoading(false);
@@ -83,7 +86,7 @@ const Dictionary = () => {
   return (
     <div>
       <div className="min-h-screen text-gray-900">
-        <h1 className="text-7xl font-bold co">Dictionary Web App</h1>
+        <h1 className="text-6xl font-bold co">Dictionary Web App</h1>
         <div className="max-w-6xl mx-auto p-6">
           <div className="flex justify-between items-center mb-6">
             <div className="flex items-center w-full max-w-lg bg-white rounded-full shadow px-4 py-2">
@@ -96,7 +99,13 @@ const Dictionary = () => {
                 placeholder="Search for a word..."
               />
             </div>
-            <button >toggle</button>
+            <button onClick={() => settoggle(!toggle)}>
+              {toggle ? (
+                <MdSunny size={32} color="orange" />
+              ) : (
+                <FaMoon size={32} color="blue" />
+              )}
+            </button>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -140,16 +149,36 @@ const Dictionary = () => {
                             </div>
                           )}
                           {m.meanings[0].synonyms?.length > 0 && (
-                            <p className="mt-2">
+                            <div className="mt-2">
                               <span className="font-semibold">Synonyms: </span>
-                              {m.meanings[0].synonyms.join(", ")}
-                            </p>
+                              <div className="flex flex-wrap gap-2 mt-1">
+                                {m.meanings[0].synonyms.map((ant, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => handleClickWord(ant)}
+                                    className="px-2 py-1 text-sm rounded bg-red-100 hover:bg-red-200 text-red-700"
+                                  >
+                                    {ant}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           )}
                           {m.meanings[0].antonyms?.length > 0 && (
-                            <p className="mt-1">
+                            <div className="mt-2">
                               <span className="font-semibold">Antonyms: </span>
-                              {m.meanings[0].antonyms.join(", ")}
-                            </p>
+                              <div className="flex flex-wrap gap-2 mt-1">
+                                {m.meanings[0].antonyms.map((ant, idx) => (
+                                  <button
+                                    key={idx}
+                                    onClick={() => handleClickWord(ant)}
+                                    className="px-2 py-1 text-sm rounded bg-green-100 hover:bg-green-200 text-green-700"
+                                  >
+                                    {ant}
+                                  </button>
+                                ))}
+                              </div>
+                            </div>
                           )}
                         </div>
                       )}
@@ -157,7 +186,7 @@ const Dictionary = () => {
                   ))}
                 </div>
               </div>
- 
+
               <div className="mt-5">
                 <h3 className="font-semibold mb-2">Search History</h3>
                 <div className="flex flex-wrap gap-2">
