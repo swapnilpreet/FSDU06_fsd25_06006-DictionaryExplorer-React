@@ -85,7 +85,7 @@ const Dictionary = () => {
 
   return (
     <div>
-      <div className="min-h-screen text-gray-900">
+      <div className="min-h-screen text-gray-900 border rounded-2xl border-red-300">
         <h1 className="text-6xl font-bold co">Dictionary Web App</h1>
         <div className="max-w-6xl mx-auto p-6">
           <div className="flex justify-between items-center mb-6">
@@ -115,7 +115,7 @@ const Dictionary = () => {
                 {isLoading && <p>Loading...</p>}
                 {errMsg && <p className="text-red-500">{errMsg}</p>}
                 {!isLoading && !errMsg && wordInfo.length === 0 && (
-                  <p>Type a word and press Enter</p>
+                  <p className="text-gray-400">Type a word and press Enter</p>
                 )}
                 <div>
                   {wordInfo?.map((m, idx) => (
@@ -199,7 +199,7 @@ const Dictionary = () => {
                       {w}
                     </button>
                   ))}
-                  {recentWords.length === 0 && <p>No history</p>}
+                  {recentWords.length === 0 && <p className="text-gray-400">No history</p>}
                 </div>
               </div>
             </div>
@@ -207,7 +207,7 @@ const Dictionary = () => {
             <div className="lg:col-span-1">
               <h3 className="font-semibold mb-3">Suggestions</h3>
               <div className="bg-green-50 p-4 rounded-lg shadow">
-                {suggestList.length === 0 && <p>No suggestions</p>}
+                {suggestList.length === 0 && <p className="text-gray-400">No suggestions</p>}
                 <ul className="space-y-1">
                   {suggestList.map((s, i) => (
                     <li key={i}>
